@@ -3,7 +3,7 @@ package bui.family.dailytracking.domain;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -15,7 +15,7 @@ public class NgayKhamBenh {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Date ngayKhamBenh;
+    private Timestamp ngayKhamBenh;
     private Integer tongSoLuotSieuAm;
     private Integer tongTienSieuAm;
     private Integer tongSoLuotXetNghiem;

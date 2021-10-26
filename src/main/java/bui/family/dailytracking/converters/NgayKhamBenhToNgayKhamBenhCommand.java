@@ -5,7 +5,9 @@ import bui.family.dailytracking.domain.NgayKhamBenh;
 import lombok.Synchronized;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.lang.Nullable;
+import org.springframework.stereotype.Component;
 
+@Component
 public class NgayKhamBenhToNgayKhamBenhCommand implements Converter<NgayKhamBenh, NgayKhamBenhCommand> {
 
     private final ThongTinLuotKhamBenhTrongNgayToThongTinLuotKhamBenhTrongNgayCommand thongTinLuotKhamBenhTrongNgayConverter;

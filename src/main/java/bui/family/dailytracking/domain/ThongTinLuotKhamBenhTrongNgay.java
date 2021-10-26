@@ -1,10 +1,12 @@
 package bui.family.dailytracking.domain;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 
 @Data
+@EqualsAndHashCode(exclude = {"ngayKhamBenh"})
 @Entity
 public class ThongTinLuotKhamBenhTrongNgay {
     @Id

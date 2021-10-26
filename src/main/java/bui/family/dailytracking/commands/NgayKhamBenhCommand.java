@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -14,7 +14,7 @@ import java.util.Set;
 public class NgayKhamBenhCommand {
     private Long id;
 
-    private Date ngayKhamBenh;
+    private Timestamp ngayKhamBenh;
     private Integer tongSoLuotSieuAm;
     private Integer tongTienSieuAm;
     private Integer tongSoLuotXetNghiem;
