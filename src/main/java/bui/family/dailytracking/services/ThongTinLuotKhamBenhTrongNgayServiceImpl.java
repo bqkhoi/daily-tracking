@@ -10,7 +10,10 @@ import bui.family.dailytracking.repositories.ThongTinLuotKhamBenhTrongNgayReposi
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -18,13 +21,15 @@ public class ThongTinLuotKhamBenhTrongNgayServiceImpl implements ThongTinLuotKha
     private final ThongTinLuotKhamBenhTrongNgayToThongTinLuotKhamBenhTrongNgayCommand thongTinLuotKhamBenhTrongNgayToThongTinLuotKhamBenhTrongNgayCommand;
     private final ThongTinLuotKhamBenhTrongNgayCommandToThongTinLuotKhamBenhTrongNgay thongTinLuotKhamBenhTrongNgayCommandToThongTinLuotKhamBenhTrongNgay;
     private final NgayKhamBenhRepository ngayKhamBenhRepository;
+    private final ThongTinLuotKhamBenhTrongNgayRepository thongTinLuotKhamBenhTrongNgayRepository;
 
     public ThongTinLuotKhamBenhTrongNgayServiceImpl(ThongTinLuotKhamBenhTrongNgayToThongTinLuotKhamBenhTrongNgayCommand thongTinLuotKhamBenhTrongNgayToThongTinLuotKhamBenhTrongNgayCommand,
                                                     ThongTinLuotKhamBenhTrongNgayCommandToThongTinLuotKhamBenhTrongNgay thongTinLuotKhamBenhTrongNgayCommandToThongTinLuotKhamBenhTrongNgay,
-                                                    NgayKhamBenhRepository ngayKhamBenhRepository) {
+                                                    NgayKhamBenhRepository ngayKhamBenhRepository, ThongTinLuotKhamBenhTrongNgayRepository thongTinLuotKhamBenhTrongNgayRepository) {
         this.thongTinLuotKhamBenhTrongNgayToThongTinLuotKhamBenhTrongNgayCommand = thongTinLuotKhamBenhTrongNgayToThongTinLuotKhamBenhTrongNgayCommand;
         this.thongTinLuotKhamBenhTrongNgayCommandToThongTinLuotKhamBenhTrongNgay = thongTinLuotKhamBenhTrongNgayCommandToThongTinLuotKhamBenhTrongNgay;
         this.ngayKhamBenhRepository = ngayKhamBenhRepository;
+        this.thongTinLuotKhamBenhTrongNgayRepository = thongTinLuotKhamBenhTrongNgayRepository;
     }
 
     @Override
@@ -50,21 +55,23 @@ public class ThongTinLuotKhamBenhTrongNgayServiceImpl implements ThongTinLuotKha
     }
 
     @Override
-    public ThongTinLuotKhamBenhTrongNgayCommand saveThongTinLuotKhamBenhTrongNgayCommand(ThongTinLuotKhamBenhTrongNgayCommand command) {
+    public NgayKhamBenh saveThongTinLuotKhamBenhTrongNgayCommand(ThongTinLuotKhamBenhTrongNgayCommand command) {
         Optional<NgayKhamBenh> ngayKhamBenhOptional = ngayKhamBenhRepository.findById(command.getNgayKhamBenhId());
         if(!ngayKhamBenhOptional.isPresent()){
             log.error("Khong Tim Thay Ngay Kham Benh Voi Id:"+command.getNgayKhamBenhId());
             return null;
         }
         NgayKhamBenh ngayKhamBenh = ngayKhamBenhOptional.get();
+        Optional<ThongTinLuotKhamBenhTrongNgay> thongTinLuotKhamBenhTrongNgayOptional = null;
+        if(command.getId() != null) {
+            thongTinLuotKhamBenhTrongNgayOptional =
+                    ngayKhamBenh.getThongTinLuotKhamBenhTrongNgays()
+                            .stream()
+                            .filter(thongTinLuotKhamBenhTrongNgay -> thongTinLuotKhamBenhTrongNgay.getId().equals(command.getId()))
+                            .findFirst();
+        }
 
-        Optional<ThongTinLuotKhamBenhTrongNgay> thongTinLuotKhamBenhTrongNgayOptional =
-                ngayKhamBenh.getThongTinLuotKhamBenhTrongNgays()
-                .stream()
-                .filter(thongTinLuotKhamBenhTrongNgay -> thongTinLuotKhamBenhTrongNgay.getId().equals(command.getId()))
-                .findFirst();
-
-        if(thongTinLuotKhamBenhTrongNgayOptional.isPresent()){
+        if(thongTinLuotKhamBenhTrongNgayOptional != null && thongTinLuotKhamBenhTrongNgayOptional.isPresent()){
             ThongTinLuotKhamBenhTrongNgay thongTinLuotKhamBenhTrongNgayFound = thongTinLuotKhamBenhTrongNgayOptional.get();
             thongTinLuotKhamBenhTrongNgayFound.setStt(command.getStt());
             thongTinLuotKhamBenhTrongNgayFound.setHoTen(command.getHoTen());
@@ -81,10 +88,34 @@ public class ThongTinLuotKhamBenhTrongNgayServiceImpl implements ThongTinLuotKha
         }
         NgayKhamBenh savedNgayKhamBenh = ngayKhamBenhRepository.save(ngayKhamBenh);
 
-        return thongTinLuotKhamBenhTrongNgayToThongTinLuotKhamBenhTrongNgayCommand
-                .convert(savedNgayKhamBenh.getThongTinLuotKhamBenhTrongNgays().stream()
-                .filter(thongTinLuotKhamBenhTrongNgay -> thongTinLuotKhamBenhTrongNgay.getId().equals(command.getId()))
-                .findFirst().get());
+        return savedNgayKhamBenh;
+    }
+
+    @Override
+    public ThongTinLuotKhamBenhTrongNgayCommand createThongTinLuotKhamBenhTrongNgay(long ngayKhamBenhId) {
+        Optional<NgayKhamBenh> ngayKhamBenhOptional = ngayKhamBenhRepository.findById(ngayKhamBenhId);
+        if(!ngayKhamBenhOptional.isPresent()){
+            log.error("Khong Tim Thay Ngay Kham Benh Voi Id:"+ngayKhamBenhId);
+            return null;
+        }
+        NgayKhamBenh ngayKhamBenh = ngayKhamBenhOptional.get();
+
+        List<ThongTinLuotKhamBenhTrongNgay> thongTinLuotKhamBenhTrongNgays = thongTinLuotKhamBenhTrongNgayRepository.findByNgayKhamBenhId(ngayKhamBenhId);
+        int highestStt = 0;
+        if(thongTinLuotKhamBenhTrongNgays.size() > 0) {
+            List<ThongTinLuotKhamBenhTrongNgay> sortedThongTinLuotKhamBenhTrongNgays =
+                    thongTinLuotKhamBenhTrongNgays.stream().sorted(Comparator.comparing(ThongTinLuotKhamBenhTrongNgay::getStt)).collect(Collectors.toList());
+            highestStt = sortedThongTinLuotKhamBenhTrongNgays.get(sortedThongTinLuotKhamBenhTrongNgays.size() - 1).getStt();
+        }
+
+        ThongTinLuotKhamBenhTrongNgay thongTinLuotKhamBenhTrongNgay = new ThongTinLuotKhamBenhTrongNgay();
+        thongTinLuotKhamBenhTrongNgay.setStt(highestStt + 1);
+        thongTinLuotKhamBenhTrongNgay.setNgayKhamBenh(ngayKhamBenh);
+
+        /*Bỏ Comment này nếu muốn tạo thông tin lượt khám bênh trong ngày ngay khi bấm nút thêm lượt khám
+        *ThongTinLuotKhamBenhTrongNgay savedThongTinLuotKhamBenhTrongNgay = thongTinLuotKhamBenhTrongNgayRepository.save(thongTinLuotKhamBenhTrongNgay);
+        */
+        return thongTinLuotKhamBenhTrongNgayToThongTinLuotKhamBenhTrongNgayCommand.convert(thongTinLuotKhamBenhTrongNgay);
     }
 
     @Override

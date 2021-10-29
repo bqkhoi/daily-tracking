@@ -20,7 +20,7 @@ public class NgayKhamBenhController {
     @RequestMapping("/ngaykhambenh/{id}/show")
     public String showById(@PathVariable String id, Model model){
 
-        model.addAttribute("ngayKhamBenh", ngayKhamBenhService.findById(Long.valueOf(id)));
+        model.addAttribute("ngayKhamBenhCommand", ngayKhamBenhService.findCommandById(Long.valueOf(id)));
         return "ngaykhambenh/ngaykhambenhshow";
     }
 
@@ -31,27 +31,10 @@ public class NgayKhamBenhController {
         return "redirect:/ngaykhambenh/" + savedCommand.getId() + "/show";
     }
 
-    @GetMapping
-    @RequestMapping("ngaykhambenh/{id}/update")
-    public String updateNgayKhamBenh(@PathVariable String id, Model model){
-        model.addAttribute("recipe", ngayKhamBenhService.findCommandById(Long.valueOf(id)));
-        return "ngaykhambenhview";
-    }
-
     @PostMapping("ngaykhambenh")
     public String saveOrUpdate(@ModelAttribute NgayKhamBenhCommand command){
         NgayKhamBenhCommand savedCommand = ngayKhamBenhService.saveNgayKhamBenhCommand(command);
 
         return "redirect:/ngaykhambenh/" + savedCommand.getId() + "/show";
-    }
-
-    @GetMapping
-    @RequestMapping("ngaykhambenh/{id}/delete")
-    public String deleteById(@PathVariable String id){
-
-        log.debug("Deleting id: " + id);
-
-        ngayKhamBenhService.deleteById(Long.valueOf(id));
-        return "redirect:/";
     }
 }

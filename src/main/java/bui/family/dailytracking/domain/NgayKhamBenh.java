@@ -29,4 +29,31 @@ public class NgayKhamBenh {
         this.thongTinLuotKhamBenhTrongNgays.add(thongTinLuotKhamBenhTrongNgay);
         return this;
     }
+
+    public void tinhTongSieuAmTrongNgay(){
+        int tongSoLuotSieuAmTrongNgay = 0;
+        int tongTienSieuAmTrongNgay = 0;
+        for(ThongTinLuotKhamBenhTrongNgay thongTinLuotKhamBenhTrongNgay : thongTinLuotKhamBenhTrongNgays){
+            if(thongTinLuotKhamBenhTrongNgay.getTienSieuAm() != null){
+                tongSoLuotSieuAmTrongNgay = tongSoLuotSieuAmTrongNgay + 1;
+                tongTienSieuAmTrongNgay = tongTienSieuAmTrongNgay + thongTinLuotKhamBenhTrongNgay.getTienSieuAm();
+            }
+        }
+        tongSoLuotSieuAm = tongSoLuotSieuAmTrongNgay;
+        tongTienSieuAm = tongTienSieuAmTrongNgay;
+    }
+
+    public void tinhTongXetNghiemTrongNgay(){
+        int tongSoLuotXetNghiemTrongNgay = 0;
+        int tongTienXetNghiemTrongNgay = 0;
+        for(ThongTinLuotKhamBenhTrongNgay thongTinLuotKhamBenhTrongNgay : thongTinLuotKhamBenhTrongNgays){
+            if(thongTinLuotKhamBenhTrongNgay.getTienXetNghiem() != null){
+                tongSoLuotXetNghiemTrongNgay = tongSoLuotXetNghiemTrongNgay + 1;
+                tongTienXetNghiemTrongNgay = tongTienXetNghiemTrongNgay + thongTinLuotKhamBenhTrongNgay.getTienXetNghiem();
+            }
+        }
+        tongSoLuotXetNghiem = tongSoLuotXetNghiemTrongNgay;
+        tongTienXetNghiem = tongTienXetNghiemTrongNgay;
+    }
+
 }

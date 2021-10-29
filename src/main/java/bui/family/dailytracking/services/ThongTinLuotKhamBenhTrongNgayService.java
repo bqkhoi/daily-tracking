@@ -1,14 +1,14 @@
 package bui.family.dailytracking.services;
 
 import bui.family.dailytracking.commands.ThongTinLuotKhamBenhTrongNgayCommand;
-import bui.family.dailytracking.domain.ThongTinLuotKhamBenhTrongNgay;
-
-import java.util.Set;
+import bui.family.dailytracking.domain.NgayKhamBenh;
 
 public interface ThongTinLuotKhamBenhTrongNgayService {
     ThongTinLuotKhamBenhTrongNgayCommand findByNgayKhamBenhIdAndThongTinLuotKhamBenhTrongNgayId(Long ngayKhamBenhId, Long thongTinLuotKhamBenhTrongNgayId);
 
-    ThongTinLuotKhamBenhTrongNgayCommand saveThongTinLuotKhamBenhTrongNgayCommand(ThongTinLuotKhamBenhTrongNgayCommand command);
+    NgayKhamBenh saveThongTinLuotKhamBenhTrongNgayCommand(ThongTinLuotKhamBenhTrongNgayCommand command);
+
+    ThongTinLuotKhamBenhTrongNgayCommand createThongTinLuotKhamBenhTrongNgay(long ngayKhamBenhId);
 
     void deleteById(Long idToDelete);
 }

@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
-    <title>Edit Ingredient</title>
+    <title>Cap Nhat Thong Tin Luot Kham</title>
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
           integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"
@@ -17,6 +17,95 @@
 </head>
 <body>
 <div class="container-fluid" style="margin-top: 20px">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <!--/*@thymesVar id="ingredient" type="guru.springframework.commands.IngredientCommand"*/-->
+            <form  th:object="${thongtinluotkhambenhtrongngaycommand}" th:action="@{'/ngaykhambenh/thongtinngaykhambenh/luotkham'} " method="post">
+                <input type="hidden" th:field="*{id}"/>
+                <input type="hidden" th:field="*{ngayKhamBenhId}"/>
+                <div class="pannel-group">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h1 class="panel-title">Cap Nhat Thong Tin Luot Kham Benh</h1>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-3 form-group">
+                                    <label>Stt:</label>
+                                </div>
+                                <div class="col-md-9 form-group">
+                                    <input type="text" th:readonly="true" class="form-control" th:field="*{stt}"/>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3 form-group">
+                                    <label>Ho Ten:</label>
+                                </div>
+                                <div class="col-md-9 form-group">
+                                    <input type="text" class="form-control" th:field="*{hoTen}"/>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3 form-group">
+                                    <label>Tuoi:</label>
+                                </div>
+                                <div class="col-md-9 form-group">
+                                    <input type="number" class="form-control" th:field="*{tuoi}"/>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3 form-group">
+                                    <label>Dia Chi:</label>
+                                </div>
+                                <div class="col-md-9 form-group">
+                                    <input type="text" class="form-control" th:field="*{diaChi}"/>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3 form-group">
+                                    <label>Sieu Am:</label>
+                                </div>
+                                <div class="col-md-9 form-group">
+                                    <input type="text" class="form-control" th:field="*{sieuAm}"/>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3 form-group">
+                                    <label>Tien Sieu Am:</label>
+                                </div>
+                                <div class="col-md-9 form-group">
+                                    <input type="number" class="form-control" th:field="*{tienSieuAm}"/>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3 form-group">
+                                    <label>Xet Nghiem:</label>
+                                </div>
+                                <div class="col-md-9 form-group">
+                                    <input type="text" class="form-control" th:field="*{xetNghiem}"/>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3 form-group">
+                                    <label>Tien Xet Nghiem:</label>
+                                </div>
+                                <div class="col-md-9 form-group">
+                                    <input type="number" class="form-control" th:field="*{tienXetNghiem}"/>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 form-group">
+                                    <label>Ghi Chu:</label>
+                                    <textarea class="form-control" rows="3" th:field="*{ghiChu}"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
 </body>
 </html>

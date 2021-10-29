@@ -1,6 +1,7 @@
 package bui.family.dailytracking.services;
 
 import bui.family.dailytracking.commands.NgayKhamBenhCommand;
+import bui.family.dailytracking.commands.ThongTinLuotKhamBenhTrongNgayCommand;
 import bui.family.dailytracking.converters.NgayKhamBenhCommandToNgayKhamBenh;
 import bui.family.dailytracking.converters.NgayKhamBenhToNgayKhamBenhCommand;
 import bui.family.dailytracking.domain.NgayKhamBenh;
@@ -28,25 +29,30 @@ public class NgayKhamBenhServiceImpl implements NgayKhamBenhService {
     }
 
     @Override
-    public List<NgayKhamBenh> getNgayKhamBenhs() {
+    public Set<NgayKhamBenh> getNgayKhamBenhs() {
         Set<NgayKhamBenh> ngayKhamBenhSet = new HashSet<>();
         ngayKhamBenhRepository.findAll().iterator().forEachRemaining(ngayKhamBenhSet::add);
-        List<NgayKhamBenh> ngayKhamBenhList = ngayKhamBenhSet.stream().sorted(Comparator.comparing(NgayKhamBenh::getId)).collect(Collectors.toList());
-        return ngayKhamBenhList;
+        Set<NgayKhamBenh> sortedNgayKhamBenhs = ngayKhamBenhSet.stream().sorted(Comparator.comparing(NgayKhamBenh::getId)).collect(Collectors.toCollection(LinkedHashSet::new));
+        return sortedNgayKhamBenhs;
     }
 
     @Override
     public NgayKhamBenh findById(Long l) {
         Optional<NgayKhamBenh> ngayKhamBenhOptional = ngayKhamBenhRepository.findById(l);
         if(!ngayKhamBenhOptional.isPresent()){
-            throw new RuntimeException("Khong Kiem Thay Ngay Kham Benh!");
+            return null;
         }
         return ngayKhamBenhOptional.get();
     }
 
     @Override
     public NgayKhamBenhCommand findCommandById(Long l) {
-        return ngayKhamBenhToNgayKhamBenhCommand.convert(findById(l));
+        //TODO sort thong tin luot kham benh trong ngay
+        NgayKhamBenhCommand ngayKhamBenhCommand = ngayKhamBenhToNgayKhamBenhCommand.convert(findById(l));
+        Set<ThongTinLuotKhamBenhTrongNgayCommand> thongTinLuotKhamBenhTrongNgayCommands = ngayKhamBenhCommand.getThongTinLuotKhamBenhTrongNgayCommands();
+        Set<ThongTinLuotKhamBenhTrongNgayCommand> sortedThongTinLuotKhamBenhTrongNgayCommands = thongTinLuotKhamBenhTrongNgayCommands.stream().sorted(Comparator.comparing(ThongTinLuotKhamBenhTrongNgayCommand::getStt)).collect(Collectors.toCollection(LinkedHashSet::new));
+        ngayKhamBenhCommand.setThongTinLuotKhamBenhTrongNgayCommands(sortedThongTinLuotKhamBenhTrongNgayCommands);
+        return ngayKhamBenhCommand;
     }
 
     @Override
@@ -56,6 +62,11 @@ public class NgayKhamBenhServiceImpl implements NgayKhamBenhService {
         NgayKhamBenh savedNgayKhamBenh = ngayKhamBenhRepository.save(detachedNgayKhamBenh);
         log.debug("Luu Ngay Kham Benh Id:" + savedNgayKhamBenh.getId());
         return ngayKhamBenhToNgayKhamBenhCommand.convert(savedNgayKhamBenh);
+    }
+
+    @Override
+    public NgayKhamBenh saveNgayKhamBenh(NgayKhamBenh ngayKhamBenh) {
+        return ngayKhamBenhRepository.save(ngayKhamBenh);
     }
 
     @Override

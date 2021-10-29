@@ -19,14 +19,14 @@
 <body>
 <div class="container-fluid" style="margin-top: 20px">
     <div class="row">
-        <div class="col-md-9 col-md-offset-1">
+        <div class="col-md-10 col-md-offset-1">
             <div class="pannel-group">
                 <div class="panel panel-primary">
                     <div class="panel-heading">
-                        <h1 class="panel-title" th:text="${#dates.format(ngayKhamBenh.getNgayKhamBenh(),'dd-MM-yyyy')}">Recipe Description Here!</h1>
+                        <h1 class="panel-title" th:text="${#dates.format(ngayKhamBenhCommand.getNgayKhamBenh(),'dd-MM-yyyy')}">Recipe Description Here!</h1>
                     </div>
                     <div class="panel-body">
-                        <div class="table-responsive" th:if="${not #lists.isEmpty(ngayKhamBenh.getThongTinLuotKhamBenhTrongNgays())}">
+                        <div class="table-responsive">
                             <table class="table table-hover ">
                                 <thead class="thead-inverse">
                                 <tr>
@@ -39,26 +39,28 @@
                                     <th>Xet Nghiem</th>
                                     <th>Tien Xet Nghiem</th>
                                     <th>Ghi Chu</th>
+                                    <th>Update</th>
                                 </tr>
                                 </thead>
-                                <tr th:each="thongTinLuotKhamBenhTrongNgay : ${ngayKhamBenh.getThongTinLuotKhamBenhTrongNgays()}">
-                                    <td th:text="${thongTinLuotKhamBenhTrongNgay.getStt()}">
-                                    <td th:text="${thongTinLuotKhamBenhTrongNgay.getHoTen()}"></td>
-                                    <td th:text="${thongTinLuotKhamBenhTrongNgay.getTuoi()}"></td>
-                                    <td th:text="${thongTinLuotKhamBenhTrongNgay.getDiaChi()}"></td>
-                                    <td th:text="${thongTinLuotKhamBenhTrongNgay.getSieuAm()}"></td>
-                                    <td th:text="${#strings.replace(#numbers.formatCurrency(thongTinLuotKhamBenhTrongNgay.getTienSieuAm()),'.00','')}">
-                                    <td th:text="${thongTinLuotKhamBenhTrongNgay.getXetNghiem()}"></td>
-                                    <td th:text="${#strings.replace(#numbers.formatCurrency(thongTinLuotKhamBenhTrongNgay.getTienXetNghiem()),'.00','')}"></td>
-                                    <td th:text="${thongTinLuotKhamBenhTrongNgay.getGhiChu()}"></td>
-                                    <td><a href="#" th:href="@{'/recipe/' + ${ngayKhamBenh.id} + '/show'}">View</a></td>
-                                    <td><a href="#" th:href="@{'/recipe/' + ${ngayKhamBenh.id} + '/update'}">Update</a></td>
-                                    <td><a href="#" th:href="@{'/recipe/' + ${ngayKhamBenh.id} + '/delete'}">Delete</a></td>
+                                <tr th:each="thongTinLuotKhamBenhTrongNgayCommand : ${ngayKhamBenhCommand.getThongTinLuotKhamBenhTrongNgayCommands()}">
+                                    <td th:text="${thongTinLuotKhamBenhTrongNgayCommand.getStt()}">
+                                    <td th:text="${thongTinLuotKhamBenhTrongNgayCommand.getHoTen()}"></td>
+                                    <td th:text="${thongTinLuotKhamBenhTrongNgayCommand.getTuoi()}"></td>
+                                    <td th:text="${thongTinLuotKhamBenhTrongNgayCommand.getDiaChi()}"></td>
+                                    <td th:text="${thongTinLuotKhamBenhTrongNgayCommand.getSieuAm()}"></td>
+                                    <td th:text="${#strings.replace(#numbers.formatCurrency(thongTinLuotKhamBenhTrongNgayCommand.getTienSieuAm()),'.00','')}" th:if="${thongTinLuotKhamBenhTrongNgayCommand.getTienSieuAm() != null}">
+                                    <td th:if="${thongTinLuotKhamBenhTrongNgayCommand.getTienSieuAm() == null}">
+                                    <td th:text="${thongTinLuotKhamBenhTrongNgayCommand.getXetNghiem()}"></td>
+                                    <td th:text="${#strings.replace(#numbers.formatCurrency(thongTinLuotKhamBenhTrongNgayCommand.getTienXetNghiem()),'.00','')}" th:if="${thongTinLuotKhamBenhTrongNgayCommand.getTienXetNghiem() != null}"></td>
+                                    <td th:if="${thongTinLuotKhamBenhTrongNgayCommand.getTienXetNghiem() == null}">
+                                    <td th:text="${thongTinLuotKhamBenhTrongNgayCommand.getGhiChu()}"></td>
+                                    <td><a href="#" th:href="@{'/ngaykhambenh/' + ${thongTinLuotKhamBenhTrongNgayCommand.getNgayKhamBenhId()} + '/thongtinluotkhambenhtrongngay/' + ${thongTinLuotKhamBenhTrongNgayCommand.getId()} + '/update'}">Update</a></td>
                                 </tr>
-                                <tr><a class="btn btn-primary" href="/ngaykhambenh/thongtinngaykhambenh/new" role="button">Them Luot Kham</a></tr>
+                                <tr><a class="btn btn-primary" th:href="@{'/ngaykhambenh/' + ${ngayKhamBenhCommand.getId()} + '/thongtinluotkhambenhtrongngay/new'}"  role="button">Them Luot Kham</a></tr>
                             </table>
                         </div>
                     </div>
+                </div>
             </div>
         </div>
     </div>
