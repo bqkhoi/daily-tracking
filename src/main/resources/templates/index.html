@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
-    <title>Daily Tracking Home</title>
+    <title>Tổng Hợp Ngày Khám Bệnh</title>
 
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
@@ -24,18 +24,18 @@
             <div class="panel panel-primary">
 
                 <div class="panel-heading">
-                    <h1 class="panel-title">Tong Hop Ngay Kham Benh</h1>
+                    <h1 class="panel-title">Tổng Hợp Ngày Khám Bệnh</h1>
                 </div>
                 <div class="panel-body">
                     <div class="table-responsive">
                         <table class="table table-hover ">
                             <thead class="thead-inverse">
                             <tr>
-                                <th>Ngay Kham Benh</th>
-                                <th>Tong So Luot Sieu Am</th>
-                                <th>Tong Tien Sieu Am</th>
-                                <th>Tong So Luot Xet Nghiem</th>
-                                <th>Tong Tien Xet Nghiem</th>
+                                <th>Ngày Khám Bệnh</th>
+                                <th>Tổng Số Lượt Siêu Âm</th>
+                                <th>Tổng Tiền Siêu Âm</th>
+                                <th>Tổng Số Lượt Xét Nghiệm</th>
+                                <th>Tổng Tiền Xét Nghiệm</th>
                                 <th>View</th>
                             </tr>
                             </thead>
@@ -47,7 +47,7 @@
                                 <td th:text="${#strings.replace(#numbers.formatCurrency(ngayKhamBenh.tongTienXetNghiem),'.00','')}"></td>
                                 <td><a href="#" th:href="@{'/ngaykhambenh/' + ${ngayKhamBenh.id} + '/show'}">Show</a></td>
                             </tr>
-                            <tr><a class="btn btn-primary" href="/ngaykhambenh/new" role="button">Them Hoac Xem Ngay Kham Benh Hom Nay</a></tr>
+                            <tr><a class="btn btn-primary" href="/ngaykhambenh/new" role="button">Thêm Hoặc Xem Ngày Khám Bệnh Hôm Nay</a></tr>
                         </table>
                     </div>
                 </div>

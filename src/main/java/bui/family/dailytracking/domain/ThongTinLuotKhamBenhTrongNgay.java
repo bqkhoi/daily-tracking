@@ -17,8 +17,8 @@ public class ThongTinLuotKhamBenhTrongNgay {
     private String hoTen;
     private Integer tuoi;
     private String diaChi;
-    private Integer soDienThoai;
-    private String sieuAm;
+    private String soDienThoai;
+    private String lamSang;
     private Integer tienSieuAm;
     private String xetNghiem;
     private Integer tienXetNghiem;

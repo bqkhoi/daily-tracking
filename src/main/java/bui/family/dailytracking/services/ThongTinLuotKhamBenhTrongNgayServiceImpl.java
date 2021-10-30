@@ -78,7 +78,7 @@ public class ThongTinLuotKhamBenhTrongNgayServiceImpl implements ThongTinLuotKha
             thongTinLuotKhamBenhTrongNgayFound.setTuoi(command.getTuoi());
             thongTinLuotKhamBenhTrongNgayFound.setDiaChi(command.getDiaChi());
             thongTinLuotKhamBenhTrongNgayFound.setSoDienThoai(command.getSoDienThoai());
-            thongTinLuotKhamBenhTrongNgayFound.setSieuAm(command.getSieuAm());
+            thongTinLuotKhamBenhTrongNgayFound.setLamSang(command.getLamSang());
             thongTinLuotKhamBenhTrongNgayFound.setTienSieuAm(command.getTienSieuAm());
             thongTinLuotKhamBenhTrongNgayFound.setXetNghiem(command.getXetNghiem());
             thongTinLuotKhamBenhTrongNgayFound.setTienXetNghiem(command.getTienXetNghiem());
