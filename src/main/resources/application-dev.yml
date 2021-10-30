@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/daily_tracking
+    url: jdbc:mysql://localhost:3306/dev_daily_tracking
     username: root
     password: jkbeauty1208
   jpa:
@@ -9,3 +9,6 @@ spring:
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
     database: mysql
     show-sql: true
+
+server:
+  port: 9090
