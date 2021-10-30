@@ -34,7 +34,7 @@ public class ThongTinLuotKhamBenhTrongNgayCommandToThongTinLuotKhamBenhTrongNgay
         thongTinLuotKhamBenhTrongNgay.setTuoi(source.getTuoi());
         thongTinLuotKhamBenhTrongNgay.setDiaChi(source.getDiaChi());
         thongTinLuotKhamBenhTrongNgay.setSoDienThoai(source.getSoDienThoai());
-        thongTinLuotKhamBenhTrongNgay.setSieuAm(source.getSieuAm());
+        thongTinLuotKhamBenhTrongNgay.setLamSang(source.getLamSang());
         thongTinLuotKhamBenhTrongNgay.setTienSieuAm(source.getTienSieuAm());
         thongTinLuotKhamBenhTrongNgay.setXetNghiem(source.getXetNghiem());
         thongTinLuotKhamBenhTrongNgay.setTienXetNghiem(source.getTienXetNghiem());

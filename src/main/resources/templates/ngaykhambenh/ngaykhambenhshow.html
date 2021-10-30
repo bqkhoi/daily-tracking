@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
-    <title>Ngay Kham Benh</title>
+    <title>Ngày Khám Bệnh</title>
 
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
@@ -23,7 +23,7 @@
             <div class="pannel-group">
                 <div class="panel panel-primary">
                     <div class="panel-heading">
-                        <h1 class="panel-title" th:text="${#dates.format(ngayKhamBenhCommand.getNgayKhamBenh(),'dd-MM-yyyy')}">Recipe Description Here!</h1>
+                        <h1 class="panel-title" th:text="${#dates.format(ngayKhamBenhCommand.getNgayKhamBenh(),'dd-MM-yyyy')}"></h1>
                     </div>
                     <div class="panel-body">
                         <div class="table-responsive">
@@ -31,14 +31,14 @@
                                 <thead class="thead-inverse">
                                 <tr>
                                     <th>STT</th>
-                                    <th>Ho Ten</th>
-                                    <th>Tuoi</th>
-                                    <th>Dia Chi</th>
-                                    <th>Sieu Am</th>
-                                    <th>Tien Sieu Am</th>
-                                    <th>Xet Nghiem</th>
-                                    <th>Tien Xet Nghiem</th>
-                                    <th>Ghi Chu</th>
+                                    <th>Họ Tên</th>
+                                    <th>Tuổi</th>
+                                    <th>Địa Chỉ</th>
+                                    <th>Lâm Sàng</th>
+                                    <th>Tiền Siêu Âm</th>
+                                    <th>Xét Nghiệm</th>
+                                    <th>Tiền Xét Nghiệm</th>
+                                    <th>Ghi Chú</th>
                                     <th>Update</th>
                                 </tr>
                                 </thead>
@@ -47,7 +47,7 @@
                                     <td th:text="${thongTinLuotKhamBenhTrongNgayCommand.getHoTen()}"></td>
                                     <td th:text="${thongTinLuotKhamBenhTrongNgayCommand.getTuoi()}"></td>
                                     <td th:text="${thongTinLuotKhamBenhTrongNgayCommand.getDiaChi()}"></td>
-                                    <td th:text="${thongTinLuotKhamBenhTrongNgayCommand.getSieuAm()}"></td>
+                                    <td th:text="${thongTinLuotKhamBenhTrongNgayCommand.getLamSang()}"></td>
                                     <td th:text="${#strings.replace(#numbers.formatCurrency(thongTinLuotKhamBenhTrongNgayCommand.getTienSieuAm()),'.00','')}" th:if="${thongTinLuotKhamBenhTrongNgayCommand.getTienSieuAm() != null}">
                                     <td th:if="${thongTinLuotKhamBenhTrongNgayCommand.getTienSieuAm() == null}">
                                     <td th:text="${thongTinLuotKhamBenhTrongNgayCommand.getXetNghiem()}"></td>
@@ -56,7 +56,7 @@
                                     <td th:text="${thongTinLuotKhamBenhTrongNgayCommand.getGhiChu()}"></td>
                                     <td><a href="#" th:href="@{'/ngaykhambenh/' + ${thongTinLuotKhamBenhTrongNgayCommand.getNgayKhamBenhId()} + '/thongtinluotkhambenhtrongngay/' + ${thongTinLuotKhamBenhTrongNgayCommand.getId()} + '/update'}">Update</a></td>
                                 </tr>
-                                <tr><a class="btn btn-primary" th:href="@{'/ngaykhambenh/' + ${ngayKhamBenhCommand.getId()} + '/thongtinluotkhambenhtrongngay/new'}"  role="button">Them Luot Kham</a></tr>
+                                <tr><a class="btn btn-primary" th:href="@{'/ngaykhambenh/' + ${ngayKhamBenhCommand.getId()} + '/thongtinluotkhambenhtrongngay/new'}"  role="button">Thêm Lượt Khám</a></tr>
                             </table>
                         </div>
                     </div>

@@ -27,7 +27,7 @@ public class ThongTinLuotKhamBenhTrongNgayToThongTinLuotKhamBenhTrongNgayCommand
         thongTinLuotKhamBenhTrongNgayCommand.setTuoi(thongTinLuotKhamBenhTrongNgay.getTuoi());
         thongTinLuotKhamBenhTrongNgayCommand.setDiaChi(thongTinLuotKhamBenhTrongNgay.getDiaChi());
         thongTinLuotKhamBenhTrongNgayCommand.setSoDienThoai(thongTinLuotKhamBenhTrongNgay.getSoDienThoai());
-        thongTinLuotKhamBenhTrongNgayCommand.setSieuAm(thongTinLuotKhamBenhTrongNgay.getSieuAm());
+        thongTinLuotKhamBenhTrongNgayCommand.setLamSang(thongTinLuotKhamBenhTrongNgay.getLamSang());
         thongTinLuotKhamBenhTrongNgayCommand.setTienSieuAm(thongTinLuotKhamBenhTrongNgay.getTienSieuAm());
         thongTinLuotKhamBenhTrongNgayCommand.setXetNghiem(thongTinLuotKhamBenhTrongNgay.getXetNghiem());
         thongTinLuotKhamBenhTrongNgayCommand.setTienXetNghiem(thongTinLuotKhamBenhTrongNgay.getTienXetNghiem());
