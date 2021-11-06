@@ -21,34 +21,54 @@
 <div class="container-fluid" style="margin-top: 20px">
     <div class="row">
         <div class="col-md-9 col-md-offset-1">
-            <div class="panel panel-primary">
-
-                <div class="panel-heading">
-                    <h1 class="panel-title">Tổng Hợp Ngày Khám Bệnh</h1>
-                </div>
-                <div class="panel-body">
-                    <div class="table-responsive">
-                        <table class="table table-hover ">
-                            <thead class="thead-inverse">
-                            <tr>
-                                <th>Ngày Khám Bệnh</th>
-                                <th>Tổng Số Lượt Siêu Âm</th>
-                                <th>Tổng Tiền Siêu Âm</th>
-                                <th>Tổng Số Lượt Xét Nghiệm</th>
-                                <th>Tổng Tiền Xét Nghiệm</th>
-                                <th>View</th>
-                            </tr>
-                            </thead>
-                            <tr th:each="ngayKhamBenh : ${ngayKhamBenhs}">
-                                <td th:text="${#dates.format(ngayKhamBenh.getNgayKhamBenh(),'dd-MM-yyyy')}">
-                                <td th:text="${ngayKhamBenh.tongSoLuotSieuAm}"></td>
-                                <td th:text="${#strings.replace(#numbers.formatCurrency(ngayKhamBenh.tongTienSieuAm),'.00','')}"></td>
-                                <td th:text="${ngayKhamBenh.tongSoLuotXetNghiem}"></td>
-                                <td th:text="${#strings.replace(#numbers.formatCurrency(ngayKhamBenh.tongTienXetNghiem),'.00','')}"></td>
-                                <td><a href="#" th:href="@{'/ngaykhambenh/' + ${ngayKhamBenh.id} + '/show'}">Show</a></td>
-                            </tr>
-                            <tr><a class="btn btn-primary" href="/ngaykhambenh/new" role="button">Thêm Hoặc Xem Ngày Khám Bệnh Hôm Nay</a></tr>
-                        </table>
+            <div class="pannel-group">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h1 class="panel-title">Tổng Hợp Ngày Khám Bệnh</h1>
+                    </div>
+                    <div class="panel-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover ">
+                                <thead class="thead-inverse">
+                                <tr>
+                                    <th>Ngày Khám Bệnh</th>
+                                    <th>Tổng Số Lượt Siêu Âm</th>
+                                    <th>Tổng Tiền Siêu Âm</th>
+                                    <th>Tổng Số Lượt Xét Nghiệm</th>
+                                    <th>Tổng Tiền Xét Nghiệm</th>
+                                    <th>View</th>
+                                </tr>
+                                </thead>
+                                <tr th:each="ngayKhamBenh : ${pageNgayKhamBenhCommand.getNgayKhamBenhPages()}">
+                                    <td th:text="${#dates.format(ngayKhamBenh.getNgayKhamBenh(),'dd-MM-yyyy')}">
+                                    <td th:text="${ngayKhamBenh.getTongSoLuotSieuAm()}"></td>
+                                    <td th:text="${#strings.replace(#numbers.formatCurrency(ngayKhamBenh.getTongTienSieuAm()),'.00','')}"></td>
+                                    <td th:text="${ngayKhamBenh.getTongSoLuotXetNghiem()}"></td>
+                                    <td th:text="${#strings.replace(#numbers.formatCurrency(ngayKhamBenh.getTongTienXetNghiem()),'.00','')}"></td>
+                                    <td><a href="#" th:href="@{'/ngaykhambenh/' + ${ngayKhamBenh.getId()} + '/show'}">Show</a></td>
+                                </tr>
+                                <tr><a class="btn btn-primary" href="/ngaykhambenh/new" role="button">Thêm Hoặc Xem Ngày Khám Bệnh Hôm Nay</a></tr>
+                            </table>
+                        </div>
+                        <div class="col-xs-12 text-center" th:if="${pageNgayKhamBenhCommand.getPageNumbers().size() > 1}">
+                            <form class="form-inline" form th:object="${pageNgayKhamBenhCommand}" th:action="@{'/index/page'} " method="post">
+                                <a class="btn btn-primary btn-sm disabled" th:if="${pageNgayKhamBenhCommand.getSelectedPage() <= 1}">
+                                    <span class="glyphicon glyphicon-arrow-left"></span>
+                                </a>
+                                <a type="button" class="btn btn-primary btn-sm" th:if="${pageNgayKhamBenhCommand.getSelectedPage() > 1}" th:href="@{/index(page=${pageNgayKhamBenhCommand.getSelectedPage() - 1})}">
+                                    <span class="glyphicon glyphicon-arrow-left"></span>
+                                </a>
+                                <span th:text="'Trang'"/>
+                                <input type="number" class="form-control" th:field="*{selectedPage}" th:min="1" th:max="${pageNgayKhamBenhCommand.getPageNumbers().size()}">
+                                <span th:text="'của ' + ${pageNgayKhamBenhCommand.getNgayKhamBenhPages().getTotalPages()}"/>
+                                <a type="button" class="btn btn-primary btn-sm disabled" th:if="${pageNgayKhamBenhCommand.getSelectedPage() == pageNgayKhamBenhCommand.getPageNumbers().size()}">
+                                    <span class="glyphicon glyphicon-arrow-right"></span>
+                                </a>
+                                <a class="btn btn-primary btn-sm" th:if="${pageNgayKhamBenhCommand.getSelectedPage() < pageNgayKhamBenhCommand.getPageNumbers().size()}" th:href="@{/index(page=${pageNgayKhamBenhCommand.getSelectedPage() + 1})}">
+                                    <span class="glyphicon glyphicon-arrow-right"></span>
+                                </a>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
