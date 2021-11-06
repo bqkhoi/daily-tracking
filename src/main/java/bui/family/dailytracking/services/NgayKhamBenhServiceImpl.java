@@ -7,6 +7,10 @@ import bui.family.dailytracking.converters.NgayKhamBenhToNgayKhamBenhCommand;
 import bui.family.dailytracking.domain.NgayKhamBenh;
 import bui.family.dailytracking.repositories.NgayKhamBenhRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
@@ -34,6 +38,13 @@ public class NgayKhamBenhServiceImpl implements NgayKhamBenhService {
         ngayKhamBenhRepository.findAll().iterator().forEachRemaining(ngayKhamBenhSet::add);
         Set<NgayKhamBenh> sortedNgayKhamBenhs = ngayKhamBenhSet.stream().sorted(Comparator.comparing(NgayKhamBenh::getId)).collect(Collectors.toCollection(LinkedHashSet::new));
         return sortedNgayKhamBenhs;
+    }
+
+    @Override
+    public Page<NgayKhamBenh> getNgayKhamBenhsInPage(int pageNumber) {
+        Pageable sortedById = PageRequest.of(pageNumber, 30, Sort.by("ngayKhamBenh"));
+        Page<NgayKhamBenh> ngayKhamBenhs = ngayKhamBenhRepository.findAll(sortedById);
+        return ngayKhamBenhs;
     }
 
     @Override
