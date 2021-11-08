@@ -1,15 +1,16 @@
 package bui.family.dailytracking.services;
 
 import bui.family.dailytracking.commands.NgayKhamBenhCommand;
+import bui.family.dailytracking.commands.PageNgayKhamBenhCommand;
 import bui.family.dailytracking.domain.NgayKhamBenh;
 import org.springframework.data.domain.Page;
 
-import java.util.Set;
+import java.util.Optional;
 
 public interface NgayKhamBenhService {
-    Set<NgayKhamBenh> getNgayKhamBenhs();
+    Page<NgayKhamBenh> getNgayKhamBenhsTaiTrang(int pageNumber);
 
-    Page<NgayKhamBenh> getNgayKhamBenhsInPage(int pageNumber);
+    PageNgayKhamBenhCommand getThongTinNgayKhamBenhTaiTrang(Optional<Integer> pageNumber);
 
     NgayKhamBenh findById(Long l);
 
@@ -20,6 +21,4 @@ public interface NgayKhamBenhService {
     NgayKhamBenh saveNgayKhamBenh(NgayKhamBenh ngayKhamBenh);
 
     NgayKhamBenhCommand createNgayKhamBenh();
-
-    void deleteById(Long idToDelete);
 }

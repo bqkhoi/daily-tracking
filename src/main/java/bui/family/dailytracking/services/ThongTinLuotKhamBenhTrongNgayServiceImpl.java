@@ -112,14 +112,6 @@ public class ThongTinLuotKhamBenhTrongNgayServiceImpl implements ThongTinLuotKha
         thongTinLuotKhamBenhTrongNgay.setStt(highestStt + 1);
         thongTinLuotKhamBenhTrongNgay.setNgayKhamBenh(ngayKhamBenh);
 
-        /*Bỏ Comment này nếu muốn tạo thông tin lượt khám bênh trong ngày ngay khi bấm nút thêm lượt khám
-        *ThongTinLuotKhamBenhTrongNgay savedThongTinLuotKhamBenhTrongNgay = thongTinLuotKhamBenhTrongNgayRepository.save(thongTinLuotKhamBenhTrongNgay);
-        */
         return thongTinLuotKhamBenhTrongNgayToThongTinLuotKhamBenhTrongNgayCommand.convert(thongTinLuotKhamBenhTrongNgay);
-    }
-
-    @Override
-    public void deleteById(Long idToDelete) {
-
     }
 }

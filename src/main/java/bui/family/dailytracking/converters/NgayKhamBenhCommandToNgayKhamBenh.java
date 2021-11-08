@@ -7,12 +7,6 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class NgayKhamBenhCommandToNgayKhamBenh implements Converter<NgayKhamBenhCommand, NgayKhamBenh> {
-    //private final ThongTinLuotKhamBenhTrongNgayCommandToThongTinLuotKhamBenhTrongNgay thongTinLuotKhamBenhTrongNgayConverter;
-
-    /*public NgayKhamBenhCommandToNgayKhamBenh(ThongTinLuotKhamBenhTrongNgayCommandToThongTinLuotKhamBenhTrongNgay thongTinLuotKhamBenhTrongNgayConverter) {
-        //this.thongTinLuotKhamBenhTrongNgayConverter = thongTinLuotKhamBenhTrongNgayConverter;
-    }*/
-
     @Override
     public NgayKhamBenh convert(NgayKhamBenhCommand source) {
         if(source == null){
@@ -26,11 +20,6 @@ public class NgayKhamBenhCommandToNgayKhamBenh implements Converter<NgayKhamBenh
         ngayKhamBenh.setTongTienSieuAm(source.getTongTienSieuAm());
         ngayKhamBenh.setTongSoLuotXetNghiem(source.getTongSoLuotXetNghiem());
         ngayKhamBenh.setTongTienXetNghiem(source.getTongTienXetNghiem());
-
-        /*if(source.getThongTinLuotKhamBenhTrongNgayCommands() != null && source.getThongTinLuotKhamBenhTrongNgayCommands().size() > 0){
-            source.getThongTinLuotKhamBenhTrongNgayCommands()
-                    .forEach(thongTinLuotKhamBenhTrongNgayCommand -> ngayKhamBenh.getThongTinLuotKhamBenhTrongNgays().add(thongTinLuotKhamBenhTrongNgayConverter.convert(thongTinLuotKhamBenhTrongNgayCommand)));
-        }*/
 
         return ngayKhamBenh;
     }

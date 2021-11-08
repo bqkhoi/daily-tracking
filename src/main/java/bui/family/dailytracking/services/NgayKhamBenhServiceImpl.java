@@ -1,6 +1,7 @@
 package bui.family.dailytracking.services;
 
 import bui.family.dailytracking.commands.NgayKhamBenhCommand;
+import bui.family.dailytracking.commands.PageNgayKhamBenhCommand;
 import bui.family.dailytracking.commands.ThongTinLuotKhamBenhTrongNgayCommand;
 import bui.family.dailytracking.converters.NgayKhamBenhCommandToNgayKhamBenh;
 import bui.family.dailytracking.converters.NgayKhamBenhToNgayKhamBenhCommand;
@@ -18,6 +19,7 @@ import java.text.SimpleDateFormat;
 import java.time.ZonedDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @Slf4j
 @Service
@@ -33,18 +35,27 @@ public class NgayKhamBenhServiceImpl implements NgayKhamBenhService {
     }
 
     @Override
-    public Set<NgayKhamBenh> getNgayKhamBenhs() {
-        Set<NgayKhamBenh> ngayKhamBenhSet = new HashSet<>();
-        ngayKhamBenhRepository.findAll().iterator().forEachRemaining(ngayKhamBenhSet::add);
-        Set<NgayKhamBenh> sortedNgayKhamBenhs = ngayKhamBenhSet.stream().sorted(Comparator.comparing(NgayKhamBenh::getId)).collect(Collectors.toCollection(LinkedHashSet::new));
-        return sortedNgayKhamBenhs;
-    }
-
-    @Override
-    public Page<NgayKhamBenh> getNgayKhamBenhsInPage(int pageNumber) {
+    public Page<NgayKhamBenh> getNgayKhamBenhsTaiTrang(int pageNumber) {
         Pageable sortedById = PageRequest.of(pageNumber, 30, Sort.by("ngayKhamBenh"));
         Page<NgayKhamBenh> ngayKhamBenhs = ngayKhamBenhRepository.findAll(sortedById);
         return ngayKhamBenhs;
+    }
+
+    @Override
+    public PageNgayKhamBenhCommand getThongTinNgayKhamBenhTaiTrang(Optional<Integer> pageNumber) {
+        int currentPage = pageNumber.orElse(1);
+        Page<NgayKhamBenh> ngayKhamBenhPages = this.getNgayKhamBenhsTaiTrang(currentPage - 1);
+        int totalPages = ngayKhamBenhPages.getTotalPages();
+        PageNgayKhamBenhCommand pageNgayKhamBenhCommand = new PageNgayKhamBenhCommand();
+        pageNgayKhamBenhCommand.setNgayKhamBenhPages(ngayKhamBenhPages);
+        if (totalPages > 0) {
+            List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
+                    .boxed()
+                    .collect(Collectors.toList());
+            pageNgayKhamBenhCommand.setPageNumbers(pageNumbers);
+            pageNgayKhamBenhCommand.setSelectedPage(currentPage);
+        }
+        return pageNgayKhamBenhCommand;
     }
 
     @Override
@@ -112,10 +123,5 @@ public class NgayKhamBenhServiceImpl implements NgayKhamBenhService {
         command.setTongSoLuotXetNghiem(0);
         command.setTongTienXetNghiem(0);
         return command;
-    }
-
-    @Override
-    public void deleteById(Long idToDelete) {
-        ngayKhamBenhRepository.deleteById(idToDelete);
     }
 }
