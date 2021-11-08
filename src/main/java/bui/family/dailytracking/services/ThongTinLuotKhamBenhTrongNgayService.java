@@ -9,6 +9,4 @@ public interface ThongTinLuotKhamBenhTrongNgayService {
     NgayKhamBenh saveThongTinLuotKhamBenhTrongNgayCommand(ThongTinLuotKhamBenhTrongNgayCommand command);
 
     ThongTinLuotKhamBenhTrongNgayCommand createThongTinLuotKhamBenhTrongNgay(long ngayKhamBenhId);
-
-    void deleteById(Long idToDelete);
 }

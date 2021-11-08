@@ -28,18 +28,7 @@ public class IndexController {
     public String getIndexPage(Model model,
                                @RequestParam("page") Optional<Integer> page){
         log.debug("Getting Index page");
-        int currentPage = page.orElse(1);
-        Page<NgayKhamBenh> ngayKhamBenhPages = ngayKhamBenhService.getNgayKhamBenhsInPage(currentPage - 1);
-        int totalPages = ngayKhamBenhPages.getTotalPages();
-        PageNgayKhamBenhCommand pageNgayKhamBenhCommand = new PageNgayKhamBenhCommand();
-        pageNgayKhamBenhCommand.setNgayKhamBenhPages(ngayKhamBenhPages);
-        if (totalPages > 0) {
-            List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
-                    .boxed()
-                    .collect(Collectors.toList());
-            pageNgayKhamBenhCommand.setPageNumbers(pageNumbers);
-            pageNgayKhamBenhCommand.setSelectedPage(currentPage);
-        }
+        PageNgayKhamBenhCommand pageNgayKhamBenhCommand = ngayKhamBenhService.getThongTinNgayKhamBenhTaiTrang(page);
         model.addAttribute("pageNgayKhamBenhCommand", pageNgayKhamBenhCommand);
         return "index";
     }

@@ -15,7 +15,7 @@ class DailyTrackingApplicationTests {
 
 	@Test
 	void contextLoads() {
-		Page<NgayKhamBenh> ngayKhamBenhs = ngayKhamBenhService.getNgayKhamBenhsInPage(0);
+		Page<NgayKhamBenh> ngayKhamBenhs = ngayKhamBenhService.getNgayKhamBenhsTaiTrang(0);
 		int totalPage = ngayKhamBenhs.getTotalPages();
 		for (NgayKhamBenh ngayKhamBenh : ngayKhamBenhs){
 			System.out.println(ngayKhamBenh.getNgayKhamBenh());
