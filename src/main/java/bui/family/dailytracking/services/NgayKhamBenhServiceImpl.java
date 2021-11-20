@@ -36,7 +36,7 @@ public class NgayKhamBenhServiceImpl implements NgayKhamBenhService {
 
     @Override
     public Page<NgayKhamBenh> getNgayKhamBenhsTaiTrang(int pageNumber) {
-        Pageable sortedById = PageRequest.of(pageNumber, 30, Sort.by("ngayKhamBenh"));
+        Pageable sortedById = PageRequest.of(pageNumber, 30, Sort.by("ngayKhamBenh").descending());
         Page<NgayKhamBenh> ngayKhamBenhs = ngayKhamBenhRepository.findAll(sortedById);
         return ngayKhamBenhs;
     }
