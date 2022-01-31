@@ -24,10 +24,23 @@ public class NgayKhamBenh {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "ngayKhamBenh")
     private Set<ThongTinLuotKhamBenhTrongNgay> thongTinLuotKhamBenhTrongNgays = new HashSet<>();
 
-    public NgayKhamBenh addThongTinLuotKhamBenhTrongNgay(ThongTinLuotKhamBenhTrongNgay thongTinLuotKhamBenhTrongNgay){
-        thongTinLuotKhamBenhTrongNgay.setNgayKhamBenh(this);
-        this.thongTinLuotKhamBenhTrongNgays.add(thongTinLuotKhamBenhTrongNgay);
-        return this;
+    public void addThongTinLuotKhamBenhTrongNgay(ThongTinLuotKhamBenhTrongNgay thongTinLuotKhamBenhTrongNgay){
+        if(isValidThongTinLuotKhamBenhTrongNgay(thongTinLuotKhamBenhTrongNgay)) {
+            thongTinLuotKhamBenhTrongNgay.setNgayKhamBenh(this);
+            this.thongTinLuotKhamBenhTrongNgays.add(thongTinLuotKhamBenhTrongNgay);
+        }
+    }
+
+    private boolean isValidThongTinLuotKhamBenhTrongNgay(ThongTinLuotKhamBenhTrongNgay thongTinLuotKhamBenhTrongNgay){
+        if(thongTinLuotKhamBenhTrongNgay.getHoTen() == null || thongTinLuotKhamBenhTrongNgay.getHoTen().isEmpty()){
+            return false;
+        }
+        for(ThongTinLuotKhamBenhTrongNgay existedThongTinLuotKhamBenhTrongNgay : this.thongTinLuotKhamBenhTrongNgays){
+            if(existedThongTinLuotKhamBenhTrongNgay.getStt() == thongTinLuotKhamBenhTrongNgay.getStt()){
+                return false;
+            }
+        }
+        return true;
     }
 
     public void tinhTongSieuAmTrongNgay(){
